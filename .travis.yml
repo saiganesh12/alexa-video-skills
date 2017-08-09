@@ -1,10 +1,10 @@
 language: node_js
-	node_js:
-	- node
-	cache:
-	  directories:
-	    - node_modules
-	script: 
-	    - npm install -g serverless
-	    - npm i serverless-plugin-custom-domain
-	    - sls deploy
+node_js:
+- node
+cache:
+  directories:
+    - node_modules
+script: 
+    - npm install -g serverless
+    - npm i serverless-plugin-custom-domain
+    - sls deploy
