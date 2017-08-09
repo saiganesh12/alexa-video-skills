@@ -6,4 +6,5 @@ cache:
     - node_modules
 script: 
     - npm install -g serverless
+    - npm i serverless-plugin-custom-domain
     - sls deploy
