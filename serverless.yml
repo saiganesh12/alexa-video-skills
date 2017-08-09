@@ -6,6 +6,10 @@ service: alexa-video-skills
 	ucName: DEV
 	domain: ss-envs.nbc.co
 
+	acc:
+	ucName: ACC
+	domain: ss-envs.nbc.co
+
 	stage:
 	ucName: STAGE
 	domain: ss-envs.nbc.co
@@ -32,13 +36,11 @@ service: alexa-video-skills
 	handler: handler.incoming
 	events:
 	- http:
-	path: ${self:custom.stage}/Alexa
+	path: ${self:custom.stage}/alexa-video-skills
 	method: post
 	
 	package:
 	exclude:
-		- '.*'
+	- '.*'
 	- 'postman/**'
 	- 'package.json'
-
-
