@@ -39,7 +39,7 @@ provider:
     Type: "AWS::ApiGateway::BasePathMapping"
     Properties:
       BasePath: ${opt:stage, self:provider.stage}
-      DomainName: ${self:custom.stageConfig.${self:custom.stage}.domain}
+      DomainName: "us-west-2.compute.internal"
       RestApiId:
         Ref: ApiGatewayRestApi
       Stage: ${opt:stage, self:provider.stage}
