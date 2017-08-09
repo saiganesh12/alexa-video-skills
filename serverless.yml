@@ -1,59 +1,46 @@
-service: alexa-video-skills
+service: myalexa-video
+	custom:
+	stage: ${opt:stage, self:provider.stage}
+	stageConfig:
+	dev:
+	ucName: DEV
+	domain: ss-envs.nbc.co
 
-custom:
-  stage: ${opt:stage, self:provider.stage}
-  stageConfig:
-    dev:
-      ucName: DEV
-      domain: ss-envs.nbc.co
-    acc:
-      ucName: ACC
-      domain: ss-envs.nbc.co
-    stage:
-      ucName: STAGE
-      domain: ss-envs.nbc.co
-    prod:
-      ucName: PROD
-      domain: ss.nbc.co
-    sandbox:
-      ucName: SANDBOX
-  domain:
-    name: ${self:custom.stageConfig.${self:custom.stage}.domain}
-    basePath: alexa
-  tableName: ${self:service}-${self:custom.stage}
+	acc:
+	ucName: ACC
+	domain: ss-envs.nbc.co
 
-plugins:
-- serverless-plugin-custom-domain
+	stage:
+	ucName: STAGE
+	domain: ss-envs.nbc.co
 
-provider:
-  name: aws
-  runtime: nodejs6.10
-  stage: dev
-  region: us-east-1
-  environment:
-    NODE_ENV: ${self:custom.stage}
- 
-functions:
-  incoming:
-    handler: handler.incoming
-    events:
-      - http:
-          path: ${self:custom.stage}/Alexa
-          method: post
-          
-APIDomainMapping:
-  Type: "AWS::ApiGateway::BasePathMapping"
-Properties:
-      BasePath: ${opt:stage, self:provider.stage}
-      DomainName: "us-west-2.compute.internal"
-      RestApiId:
-        Ref: ApiGatewayRestApi
-      Stage: ${opt:stage, self:provider.stage}
+	prod:
+	ucName: PROD
+	domain: ss.nbc.co
 
-
-package:
-  exclude:
-    - '.*'
-    - 'repositary.yml'
-    - 'node_modules'
-    - 'package.json'
+	
+	
+	plugins:
+	- serverless-plugin-custom-domain
+	
+	provider:
+	name: aws
+	runtime: nodejs6.10
+	stage: dev
+	region: us-east-1
+	environment:
+	NODE_ENV: ${self:custom.stage}
+	
+	functions:
+	incoming:
+	handler: handler.incoming
+	events:
+	- http:
+	path: ${self:custom.stage}/myalexa-video
+	method: post
+	
+	package:
+	exclude:
+	- '.*'
+	- 'postman/**'
+	- 'package.json'
