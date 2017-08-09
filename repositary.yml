@@ -1,0 +1,202 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+Parameters:
+  Environment:
+    Type: String
+Resources:
+  parkBuilder:
+    Type: "AWS::ECR::Repository"
+    Properties:
+      RepositoryName: !Join ['', [!Ref 'Environment', "/", "park/builder"]]
+  parkIdmDependencies:
+    Type: "AWS::ECR::Repository"
+    Properties:
+      RepositoryName: !Join ['', [!Ref 'Environment', "/", "park/idm/dependencies"]]
+  parkCron:
+    Type: "AWS::ECR::Repository"
+    Properties:
+      RepositoryName: !Join ['', [!Ref 'Environment', "/", "park-cron"]]
+  parkOpenDJReplicationConfigurator:
+    Type: "AWS::ECR::Repository"
+    Properties:
+      RepositoryName: !Join ['', [!Ref 'Environment', "/", "park-opendj-replication-configurator"]]
+  parkSplunk:
+    Type: "AWS::ECR::Repository"
+    Properties:
+      RepositoryName: !Join ['', [!Ref 'Environment', "/", "park-splunk"]]
+  parkSyslog:
+    Type: "AWS::ECR::Repository"
+    Properties:
+      RepositoryName: !Join ['', [!Ref 'Environment', "/", "park-syslog"]]
+  parkConsul:
+    Type: "AWS::ECR::Repository"
+    Properties:
+      RepositoryName: !Join ['', [!Ref 'Environment', "/", "park-hashicorp-consul"]]
+  parkVault:
+    Type: "AWS::ECR::Repository"
+    Properties:
+      RepositoryName: !Join ['', [!Ref 'Environment', "/", "park-hashicorp-vault"]]
+  parkProxyWhitelist:
+    Type: "AWS::ECR::Repository"
+    Properties:
+      RepositoryName: !Join ['', [!Ref 'Environment', "/", "park-whitelist-proxy"]]
+  parkIG:
+    Type: "AWS::ECR::Repository"
+    Properties:
+      RepositoryName: !Join ['', [!Ref 'Environment', "/", "park/openig"]]
+  parkIDM:
+    Type: "AWS::ECR::Repository"
+    Properties:
+      RepositoryName: !Join ['', [!Ref 'Environment', "/", "park/openidm"]]
+  parkAM:
+    Type: "AWS::ECR::Repository"
+    Properties:
+      RepositoryName: !Join ['', [!Ref 'Environment', "/", "park/openam"]]
+  parkIdmDjAM:
+    Type: "AWS::ECR::Repository"
+    Properties:
+      RepositoryName: !Join ['', [!Ref 'Environment', "/", "park-idm-dj-amstore"]]
+  parkIdmDjCTS:
+    Type: "AWS::ECR::Repository"
+    Properties:
+      RepositoryName: !Join ['', [!Ref 'Environment', "/", "park-idm-dj-ctsstore"]]
+  parkIdmDjUser:
+    Type: "AWS::ECR::Repository"
+    Properties:
+      RepositoryName: !Join ['', [!Ref 'Environment', "/", "park-idm-dj-userstore"]]
+  adopIamaasNginx:
+    Type: "AWS::ECR::Repository"
+    Properties:
+      RepositoryName: !Join ['', [!Ref 'Environment', "/", "adop/iamaas_nginx_1.0"]]
+  adopOpenamrel:
+    Type: "AWS::ECR::Repository"
+    Properties:
+      RepositoryName: !Join ['', [!Ref 'Environment', "/", "adop/openamrel_2.0"]]
+  forgerockIamaasOpenAM:
+    Type: "AWS::ECR::Repository"
+    Properties:
+      RepositoryName: !Join ['', [!Ref 'Environment', "/", "forgerock/iamaas_openam"]]
+  adopOpenAmembdrel:
+    Type: "AWS::ECR::Repository"
+    Properties:
+      RepositoryName: !Join ['', [!Ref 'Environment', "/", "adop/openamembdrel_1.1"]]
+  adopOpendJrel:
+    Type: "AWS::ECR::Repository"
+    Properties:
+      RepositoryName: !Join ['', [!Ref 'Environment', "/", "adop/opendjrel_2.1"]]
+  forgerockIamaasOpenDJ:
+    Type: "AWS::ECR::Repository"
+    Properties:
+      RepositoryName: !Join ['', [!Ref 'Environment', "/", "forgerock/iamaas_opendj"]]
+  adopOpenIDMrel:
+    Type: "AWS::ECR::Repository"
+    Properties:
+      RepositoryName: !Join ['', [!Ref 'Environment', "/", "adop/openidmrel_2.0"]]
+  forgerockIamaasOpenIDMembd:
+    Type: "AWS::ECR::Repository"
+    Properties:
+      RepositoryName: !Join ['', [!Ref 'Environment', "/", "forgerock/iamaas_openidmembd"]]
+  adopOpenIDMembdrel:
+    Type: "AWS::ECR::Repository"
+    Properties:
+      RepositoryName: !Join ['', [!Ref 'Environment', "/", "adop/openidmembdrel_2.0"]]
+  forgerockIamaasOpenIDMembd:
+    Type: "AWS::ECR::Repository"
+    Properties:
+      RepositoryName: !Join ['', [!Ref 'Environment', "/", "forgerock/iamaas_openidmembd"]]
+  adopOpenIGrel:
+    Type: "AWS::ECR::Repository"
+    Properties:
+      RepositoryName: !Join ['', [!Ref 'Environment', "/", "adop/openigrel_2.0"]]
+  forgerockIamaasOpenIG:
+    Type: "AWS::ECR::Repository"
+    Properties:
+      RepositoryName: !Join ['', [!Ref 'Environment', "/", "forgerock/iamaas_openig"]]
+  forgerockOpenIDM:
+    Type: "AWS::ECR::Repository"
+    Properties:
+      RepositoryName: !Join ['', [!Ref 'Environment', "/", "forgerock/openidm"]]
+  forgerockOpenAM:
+    Type: "AWS::ECR::Repository"
+    Properties:
+      RepositoryName: !Join ['', [!Ref 'Environment', "/", "forgerock/openam"]]
+  forgerockOpenDJ:
+    Type: "AWS::ECR::Repository"
+    Properties:
+      RepositoryName: !Join ['', [!Ref 'Environment', "/", "forgerock/opendj"]]
+  forgerockOpenIG:
+    Type: "AWS::ECR::Repository"
+    Properties:
+      RepositoryName: !Join ['', [!Ref 'Environment', "/", "forgerock/openig"]]
+  parkSignalFX:
+    Type: "AWS::ECR::Repository"
+    Properties:
+      RepositoryName: !Join ['', [!Ref 'Environment', "/", "park/signalfx"]]
+  parkNewrelicUnix:
+    Type: "AWS::ECR::Repository"
+    Properties:
+      RepositoryName: !Join ['', [!Ref 'Environment', "/", "park/newrelic-unix"]]
+Outputs:
+  parkBuilder:
+    Value: !Join ['', [ !Ref 'AWS::AccountId', '.dkr.ecr.', !Ref 'AWS::Region', '.amazonaws.com/', !Ref 'parkBuilder']]
+  parkIdmDependencies:
+    Description: "An image with the core artifacts Dind for building the rest of the idm images"
+    Value: !Join ['', [ !Ref 'AWS::AccountId', '.dkr.ecr.', !Ref 'AWS::Region', '.amazonaws.com/', !Ref 'parkBuilder']]
+  parkNewrelicUnix:
+    Value: !Join ['', [ !Ref 'AWS::AccountId', '.dkr.ecr.', !Ref 'AWS::Region', '.amazonaws.com/', !Ref 'parkNewrelicUnix']]
+  parkSignalFX:
+    Value: !Join ['', [ !Ref 'AWS::AccountId', '.dkr.ecr.', !Ref 'AWS::Region', '.amazonaws.com/', !Ref 'parkSignalFX']]
+  parkSplunk:
+    Value: !Join ['', [ !Ref 'AWS::AccountId', '.dkr.ecr.', !Ref 'AWS::Region', '.amazonaws.com/', !Ref 'parkSplunk']]
+  parkSyslog:
+    Value: !Join ['', [ !Ref 'AWS::AccountId', '.dkr.ecr.', !Ref 'AWS::Region', '.amazonaws.com/', !Ref 'parkSyslog']]
+  parkConsul:
+    Value: !Join ['', [ !Ref 'AWS::AccountId', '.dkr.ecr.', !Ref 'AWS::Region', '.amazonaws.com/', !Ref 'parkConsul']]
+  parkVault:
+    Value: !Join ['', [ !Ref 'AWS::AccountId', '.dkr.ecr.', !Ref 'AWS::Region', '.amazonaws.com/', !Ref 'parkVault']]
+  parkProxyWhitelist:
+    Value: !Join ['', [ !Ref 'AWS::AccountId', '.dkr.ecr.', !Ref 'AWS::Region', '.amazonaws.com/', !Ref 'parkProxyWhitelist']]
+  parkAM:
+    Value: !Join ['', [ !Ref 'AWS::AccountId', '.dkr.ecr.', !Ref 'AWS::Region', '.amazonaws.com/', !Ref 'parkAM']]
+  parkIDM:
+    Value: !Join ['', [ !Ref 'AWS::AccountId', '.dkr.ecr.', !Ref 'AWS::Region', '.amazonaws.com/', !Ref 'parkIDM']]
+  parkIG:
+    Value: !Join ['', [ !Ref 'AWS::AccountId', '.dkr.ecr.', !Ref 'AWS::Region', '.amazonaws.com/', !Ref 'parkIG']]
+  adopIamaasNginx:
+    Value: !Join ['', [ !Ref 'AWS::AccountId', '.dkr.ecr.', !Ref 'AWS::Region', '.amazonaws.com/', !Ref 'adopIamaasNginx']]
+  adopOpenamrel:
+    Value: !Join ['', [ !Ref 'AWS::AccountId', '.dkr.ecr.', !Ref 'AWS::Region', '.amazonaws.com/', !Ref 'adopOpenamrel']]
+  forgerockIamaasOpenAM:
+    Value: !Join ['', [ !Ref 'AWS::AccountId', '.dkr.ecr.', !Ref 'AWS::Region', '.amazonaws.com/', !Ref 'forgerockIamaasOpenAM']]
+  adopOpenAmembdrel:
+    Value: !Join ['', [ !Ref 'AWS::AccountId', '.dkr.ecr.', !Ref 'AWS::Region', '.amazonaws.com/', !Ref 'adopOpenAmembdrel']]
+  adopOpendJrel:
+    Value: !Join ['', [ !Ref 'AWS::AccountId', '.dkr.ecr.', !Ref 'AWS::Region', '.amazonaws.com/', !Ref 'adopOpendJrel']]
+  forgerockIamaasOpenDJ:
+    Value: !Join ['', [ !Ref 'AWS::AccountId', '.dkr.ecr.', !Ref 'AWS::Region', '.amazonaws.com/', !Ref 'forgerockIamaasOpenDJ']]
+  adopOpenIDMrel:
+    Value: !Join ['', [ !Ref 'AWS::AccountId', '.dkr.ecr.', !Ref 'AWS::Region', '.amazonaws.com/', !Ref 'adopOpenIDMrel']]
+  forgerockIamaasOpenIDMembd:
+    Value: !Join ['', [ !Ref 'AWS::AccountId', '.dkr.ecr.', !Ref 'AWS::Region', '.amazonaws.com/', !Ref 'forgerockIamaasOpenIDMembd']]
+  adopOpenIDMembdrel:
+    Value: !Join ['', [ !Ref 'AWS::AccountId', '.dkr.ecr.', !Ref 'AWS::Region', '.amazonaws.com/', !Ref 'adopOpenIDMembdrel']]
+  forgerockIamaasOpenIDMembd:
+    Value: !Join ['', [ !Ref 'AWS::AccountId', '.dkr.ecr.', !Ref 'AWS::Region', '.amazonaws.com/', !Ref 'forgerockIamaasOpenIDMembd']]
+  adopOpenIGrel:
+    Value: !Join ['', [ !Ref 'AWS::AccountId', '.dkr.ecr.', !Ref 'AWS::Region', '.amazonaws.com/', !Ref 'adopOpenIGrel']]
+  forgerockIamaasOpenIG:
+    Value: !Join ['', [ !Ref 'AWS::AccountId', '.dkr.ecr.', !Ref 'AWS::Region', '.amazonaws.com/', !Ref 'forgerockIamaasOpenIG']]
+  forgerockOpenIDM:
+    Value: !Join ['', [ !Ref 'AWS::AccountId', '.dkr.ecr.', !Ref 'AWS::Region', '.amazonaws.com/', !Ref 'forgerockOpenIDM']]
+  forgerockOpenAM:
+    Value: !Join ['', [ !Ref 'AWS::AccountId', '.dkr.ecr.', !Ref 'AWS::Region', '.amazonaws.com/', !Ref 'forgerockOpenAM']]
+  forgerockOpenDJ:
+    Value: !Join ['', [ !Ref 'AWS::AccountId', '.dkr.ecr.', !Ref 'AWS::Region', '.amazonaws.com/', !Ref 'forgerockOpenDJ']]
+  parkDjAMStore:
+    Value: !Join ['', [ !Ref 'AWS::AccountId', '.dkr.ecr.', !Ref 'AWS::Region', '.amazonaws.com/', !Ref 'parkIdmDjAM']]
+  parkDjCTSStore:
+    Value: !Join ['', [ !Ref 'AWS::AccountId', '.dkr.ecr.', !Ref 'AWS::Region', '.amazonaws.com/', !Ref 'parkIdmDjCTS']]
+  parkDjUserStore:
+    Value: !Join ['', [ !Ref 'AWS::AccountId', '.dkr.ecr.', !Ref 'AWS::Region', '.amazonaws.com/', !Ref 'parkIdmDjUser']]
+  forgerockOpenIG:
+    Value: !Join ['', [ !Ref 'AWS::AccountId', '.dkr.ecr.', !Ref 'AWS::Region', '.amazonaws.com/', !Ref 'forgerockOpenIG']]
