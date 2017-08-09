@@ -37,8 +37,8 @@ service: alexa-video-skills
 	
 	package:
 	exclude:
-	    - '.*'
-    - 'repositary.yml'
-    - 'node_modules'
-    - 'package.json'
+		- '.*'
+	- 'postman/**'
+	- 'package.json'
+
 
