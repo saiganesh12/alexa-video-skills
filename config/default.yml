@@ -1,0 +1,12 @@
+logger:
+  activeLog: console
+  console: null
+  splunk:
+    splunkHttp:
+      host: forwarder.splunk.lookitsuni.com
+      port: 8088
+      token: null
+aws:
+  region: null
+  dynamoDB:
+    tableName: null

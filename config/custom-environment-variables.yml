@@ -1,0 +1,8 @@
+logger:
+  splunk:
+    splunkHttp:
+      token: SPLUNK_LOGGER_TOKEN
+aws:
+  region: AWS_REGION
+  dynamoDB:
+    tableName: DYNAMODB_TABLE_NAME
