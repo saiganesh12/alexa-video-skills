@@ -9,10 +9,10 @@ node_js:
 before_script:
   - mkdir -p ./__code_coverage__
 script:
-  - ./travis-script.sh
+  - ./.travis-script.sh
 after_success:
   - yarn run semantic-release
-  - ./travis-after-script.sh
+  - ./.travis-after-script.sh
 branches:
   except:
     - /^v\d+\.\d+\.\d+$/
