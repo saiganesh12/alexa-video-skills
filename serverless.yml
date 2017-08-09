@@ -36,9 +36,8 @@ provider:
     SPLUNK_LOGGER_TOKEN: ${env:SPLUNK_LOGGER_TOKEN_${self:custom.stageConfig.${self:custom.stage}.ucName}}
 
 functions:
-  activation-post:
-    handler: handlers/handler
-    events:
+  handler: handlers/handler
+   events:
       - http:
           path: ${self:custom.stage}/handler
           method: post
@@ -80,10 +79,6 @@ resources:
 package:
   exclude:
     - '.*'
-    - '**/*.swp'
-    - '__tests__/**'
-    - '__coverage__/**'
     - 'postman/**'
-    - 'yarn.lock'
-    - 'package.json'
-    - 'README.md'
+    - 'package.json'   
+   
