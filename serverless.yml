@@ -37,7 +37,7 @@ provider:
 
 functions:
   handler: handlers/handler
-   events:
+  events:
       - http:
           path: ${self:custom.stage}/handler
           method: post
@@ -81,4 +81,3 @@ package:
     - '.*'
     - 'postman/**'
     - 'package.json'   
-   
