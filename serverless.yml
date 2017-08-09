@@ -34,13 +34,22 @@ provider:
     NODE_ENV: ${self:custom.stage}
     DYNAMODB_TABLE_NAME: ${self:custom.tableName}
     SPLUNK_LOGGER_TOKEN: ${env:SPLUNK_LOGGER_TOKEN_${self:custom.stageConfig.${self:custom.stage}.ucName}}
-          
+    
+ APIDomainMapping:
+    Type: "AWS::ApiGateway::BasePathMapping"
+    Properties:
+      BasePath: ${opt:stage, self:provider.stage}
+      DomainName: "ss-envs.nbc.co"
+      RestApiId:
+        Ref: ApiGatewayRestApi
+      Stage: ${opt:stage, self:provider.stage}
+ 
 functions:
-  incoming:
-    handler: handler.incoming
+  alexa-video-skills:
+    handler: handlers/index.handler
     events:
       - http:
-          path: stripe/incoming
+          path: ${self:custom.stage}/handler
           method: post
 
 resources:
