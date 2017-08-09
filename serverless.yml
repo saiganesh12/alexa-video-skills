@@ -19,7 +19,7 @@ custom:
       ucName: SANDBOX
   domain:
     name: ${self:custom.stageConfig.${self:custom.stage}.domain}
-    basePath: bouncer
+    basePath: alexa
   tableName: ${self:service}-${self:custom.stage}
 
 plugins:
@@ -39,7 +39,7 @@ provider:
     Type: "AWS::ApiGateway::BasePathMapping"
     Properties:
       BasePath: ${opt:stage, self:provider.stage}
-      DomainName: ""
+      DomainName: us-west-2.compute.internal
       RestApiId:
         Ref: ApiGatewayRestApi
       Stage: ${opt:stage, self:provider.stage}
