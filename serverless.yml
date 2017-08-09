@@ -41,6 +41,14 @@ functions:
           path: ${self:custom.stage}/Alexa
           method: post
           
+APIDomainMapping:
+  Type: "AWS::ApiGateway::BasePathMapping"
+Properties:
+      BasePath: ${opt:stage, self:provider.stage}
+      DomainName: "us-west-2.compute.internal"
+      RestApiId:
+        Ref: ApiGatewayRestApi
+      Stage: ${opt:stage, self:provider.stage}
 
 
 package:
