@@ -1,4 +1,4 @@
-service: alexa
+service: alexa-video-skills
 
 custom:
   stage: ${opt:stage, self:provider.stage}
@@ -23,7 +23,7 @@ custom:
   tableName: ${self:service}-${self:custom.stage}
 
 plugins:
-  - serverless-plugin-custom-domain
+- serverless-plugin-custom-domain
 
 provider:
   name: aws
@@ -32,52 +32,27 @@ provider:
   region: us-east-1
   environment:
     NODE_ENV: ${self:custom.stage}
-    DYNAMODB_TABLE_NAME: ${self:custom.tableName}
-    SPLUNK_LOGGER_TOKEN: ${env:SPLUNK_LOGGER_TOKEN_${self:custom.stageConfig.${self:custom.stage}.ucName}}
-
+ 
 functions:
-  handler: handlers/handler
-  events:
+  incoming:
+    handler: handler.incoming
+    events:
       - http:
-          path: ${self:custom.stage}/handler
+          path: ${self:custom.stage}/Alexa
           method: post
-  
-resources:
-  Resources:
-    DynamoDbTable:
-      Type: AWS::DynamoDB::Table
-      Properties:
-        TableName:  ${self:custom.tableName}
-        AttributeDefinitions:
-          - AttributeName: idmcode
-            AttributeType: S
-        KeySchema:
-          - AttributeName: idmcode
-            KeyType: HASH
-        ProvisionedThroughput:
-          ReadCapacityUnits: 5
-          WriteCapacityUnits: 5
-        TimeToLiveSpecification:
-          AttributeName: ttl
-          Enabled: true
-    DynamoDBIamPolicy:
-      Type: AWS::IAM::Policy
-      DependsOn: DynamoDbTable
-      Properties:
-        PolicyName: lambda-dynamodb
-        PolicyDocument:
-          Version: '2012-10-17'
-          Statement:
-            - Effect: Allow
-              Action:
-                - dynamodb:GetItem
-                - dynamodb:PutItem
-              Resource: arn:aws:dynamodb:*:*:table/${self:custom.tableName}
-        Roles:
-          - Ref: IamRoleLambdaExecution
+          
+APIDomainMapping:
+  Type: "AWS::ApiGateway::BasePathMapping"
+Properties:
+      BasePath: ${opt:stage, self:provider.stage}
+      DomainName: "us-west-2.compute.internal"
+      RestApiId:
+        Ref: ApiGatewayRestApi
+      Stage: ${opt:stage, self:provider.stage}
 
 package:
   exclude:
     - '.*'
-    - 'postman/**'
-    - 'package.json'   
+    - 'repositary.yml'
+    - 'node_modules'
+    - 'package.json'
