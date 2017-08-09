@@ -32,22 +32,13 @@ provider:
   region: us-east-1
   environment:
     NODE_ENV: ${self:custom.stage}
-    
-APIDomainMapping:
-  Type: "AWS::ApiGateway::BasePathMapping"
-Properties:
-      BasePath: ${opt:stage, self:provider.stage}
-      DomainName: "us-west-2.compute.internal"
-      RestApiId:
-        Ref: ApiGatewayRestApi
-      Stage: ${opt:stage, self:provider.stage}
  
 functions:
-  alexa-video-skills:
-    handler: handlers/index.handler
+    create:
+    handler: todos/create.create
     events:
       - http:
-          path: ${self:custom.stage}/handler
+          path: ${self:custom.stage}/alexa
           method: post
 
 package:
