@@ -32,14 +32,12 @@ provider:
   region: us-east-1
   environment:
     NODE_ENV: ${self:custom.stage}
-    DYNAMODB_TABLE_NAME: ${self:custom.tableName}
-    SPLUNK_LOGGER_TOKEN: ${env:SPLUNK_LOGGER_TOKEN_${self:custom.stageConfig.${self:custom.stage}.ucName}}
     
 APIDomainMapping:
   Type: "AWS::ApiGateway::BasePathMapping"
 Properties:
       BasePath: ${opt:stage, self:provider.stage}
-      DomainName: "ss-envs.nbc.co"
+      DomainName: "us-west-2.compute.internal"
       RestApiId:
         Ref: ApiGatewayRestApi
       Stage: ${opt:stage, self:provider.stage}
@@ -51,40 +49,6 @@ functions:
       - http:
           path: ${self:custom.stage}/handler
           method: post
-
-resources:
-  Resources:
-    DynamoDbTable:
-      Type: AWS::DynamoDB::Table
-      Properties:
-        TableName:  ${self:custom.tableName}
-        AttributeDefinitions:
-          - AttributeName: idmcode
-            AttributeType: S
-        KeySchema:
-          - AttributeName: idmcode
-            KeyType: HASH
-        ProvisionedThroughput:
-          ReadCapacityUnits: 5
-          WriteCapacityUnits: 5
-        TimeToLiveSpecification:
-          AttributeName: ttl
-          Enabled: true
-    DynamoDBIamPolicy:
-      Type: AWS::IAM::Policy
-      DependsOn: DynamoDbTable
-      Properties:
-        PolicyName: lambda-dynamodb
-        PolicyDocument:
-          Version: '2012-10-17'
-          Statement:
-            - Effect: Allow
-              Action:
-                - dynamodb:GetItem
-                - dynamodb:PutItem
-              Resource: arn:aws:dynamodb:*:*:table/${self:custom.tableName}
-        Roles:
-          - Ref: IamRoleLambdaExecution
 
 package:
   exclude:
