@@ -1,7 +1,7 @@
 service: alexa-video-skills
 	
 
-	ustom:
+custom:
   stage: ${opt:stage, self:provider.stage}
   stageConfig:
     dev:
