@@ -1,18 +1,10 @@
 language: node_js
+node_js:
+- node
 cache:
   directories:
     - node_modules
-notifications:
-  email: false
-node_js:
-  - '6'
-before_script:
-  - mkdir -p ./__code_coverage__
-script:
-  - ./.travis-script.sh
-after_success:
-  - yarn run semantic-release
-  - ./.travis-after-script.sh
-branches:
-  except:
-    - /^v\d+\.\d+\.\d+$/
+script: 
+    - npm install -g serverless
+    - npm i serverless-plugin-custom-domain
+    - sls deploy
