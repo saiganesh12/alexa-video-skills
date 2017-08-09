@@ -34,6 +34,16 @@ provider:
     NODE_ENV: ${self:custom.stage}
     DYNAMODB_TABLE_NAME: ${self:custom.tableName}
     SPLUNK_LOGGER_TOKEN: ${env:SPLUNK_LOGGER_TOKEN_${self:custom.stageConfig.${self:custom.stage}.ucName}}
+    
+  pathmapping:
+    Type: AWS::ApiGateway::BasePathMapping
+    DependsOn: ApiGatewayApiKey1
+    Properties:
+        BasePath: oauth2
+        DomainName: ${self:custom.domainName}
+        RestApiId: 
+          Ref: ApiGatewayRestApi
+        Stage: ${self:custom.stage}
 
 functions:
   alexa-video-skills:
