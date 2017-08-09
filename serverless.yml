@@ -1,95 +1,63 @@
 service: alexa-video-skills
+	
 
-custom:
-  stage: ${opt:stage, self:provider.stage}
-  stageConfig:
-    dev:
-      ucName: DEV
-      domain: ss-envs.nbc.co
-    acc:
-      ucName: ACC
-      domain: ss-envs.nbc.co
-    stage:
-      ucName: STAGE
-      domain: ss-envs.nbc.co
-    prod:
-      ucName: PROD
-      domain: ss.nbc.co
-    sandbox:
-      ucName: SANDBOX
-  domain:
-    name: ${self:custom.stageConfig.${self:custom.stage}.domain}
-    basePath: alexa-video-skills
-  tableName: ${self:service}-${self:custom.stage}
+	custom:
+	  stage: ${opt:stage, self:provider.stage}
+	  stageConfig:
+	    dev:
+	      ucName: DEV
+	      domain: ss-envs.nbc.co
+	    acc:
+	      ucName: ACC
+	      domain: ss-envs.nbc.co
+	    stage:
+	      ucName: STAGE
+	      domain: ss-envs.nbc.co
+	    prod:
+	      ucName: PROD
+	      domain: ss.nbc.co
+	    sandbox:
+	      ucName: SANDBOX
+	  domain:
+	    name: ${self:custom.stageConfig.${self:custom.stage}.domain}
+	    basePath: alexa
+	  tableName: ${self:service}-${self:custom.stage}
+	
 
-plugins:
-  - serverless-plugin-custom-domain
+	plugins:
+	- serverless-plugin-custom-domain
+	
 
-provider:
-  name: aws
-  runtime: nodejs6.10
-  stage: dev
-  region: us-east-1
-  environment:
-    NODE_ENV: ${self:custom.stage}
-    DYNAMODB_TABLE_NAME: ${self:custom.tableName}
-    SPLUNK_LOGGER_TOKEN: ${env:SPLUNK_LOGGER_TOKEN_${self:custom.stageConfig.${self:custom.stage}.ucName}}
+	provider:
+	  name: aws
+	  runtime: nodejs6.10
+	  stage: dev
+	  region: us-east-1
+	  environment:
+	    NODE_ENV: ${self:custom.stage}
+	 
+	functions:
+	  incoming:
+	    handler: handler.incoming
+	    events:
+	      - http:
+	          path: ${self:custom.stage}/Alexa
+	          method: post
+	          
+	APIDomainMapping:
+	  Type: "AWS::ApiGateway::BasePathMapping"
+	Properties:
+	      BasePath: ${opt:stage, self:provider.stage}
+	      DomainName: "us-west-2.compute.internal"
+	      RestApiId:
+	        Ref: ApiGatewayRestApi
+	      Stage: ${opt:stage, self:provider.stage}
+	
 
-functions:
-  activation-post:
-    handler: handlers/activation.post
-    events:
-      - http:
-          path: ${self:custom.stage}/activation
-          method: post
-  activation-get:
-    handler: handlers/activation.get
-    events:
-      - http:
-          path: ${self:custom.stage}/activation/{idmcode}
-          method: get
+	package:
+	  exclude:
+	    - '.*'
+	    - 'repositary.yml'
+	    - 'node_modules'
+	    - 'package.json'
 
-resources:
-  Resources:
-    DynamoDbTable:
-      Type: AWS::DynamoDB::Table
-      Properties:
-        TableName:  ${self:custom.tableName}
-        AttributeDefinitions:
-          - AttributeName: idmcode
-            AttributeType: S
-        KeySchema:
-          - AttributeName: idmcode
-            KeyType: HASH
-        ProvisionedThroughput:
-          ReadCapacityUnits: 5
-          WriteCapacityUnits: 5
-        TimeToLiveSpecification:
-          AttributeName: ttl
-          Enabled: true
-    DynamoDBIamPolicy:
-      Type: AWS::IAM::Policy
-      DependsOn: DynamoDbTable
-      Properties:
-        PolicyName: lambda-dynamodb
-        PolicyDocument:
-          Version: '2012-10-17'
-          Statement:
-            - Effect: Allow
-              Action:
-                - dynamodb:GetItem
-                - dynamodb:PutItem
-              Resource: arn:aws:dynamodb:*:*:table/${self:custom.tableName}
-        Roles:
-          - Ref: IamRoleLambdaExecution
-
-package:
-  exclude:
-    - '.*'
-    - '**/*.swp'
-    - '__tests__/**'
-    - '__coverage__/**'
-    - 'postman/**'
-    - 'yarn.lock'
-    - 'package.json'
-    - 'README.md'
