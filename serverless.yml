@@ -34,11 +34,11 @@ provider:
     NODE_ENV: ${self:custom.stage}
  
 functions:
-    create:
-    handler: todos/create.create
+  incoming:
+    handler: handler.incoming
     events:
       - http:
-          path: ${self:custom.stage}/alexa
+          path: ${self:custom.stage}/Alexa
           method: post
 
 package:
