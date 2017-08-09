@@ -1,4 +1,4 @@
-service: myalexa-video
+service: alexa-video-skills
 	custom:
 	stage: ${opt:stage, self:provider.stage}
 	stageConfig:
@@ -36,11 +36,13 @@ service: myalexa-video
 	handler: handler.incoming
 	events:
 	- http:
-	path: ${self:custom.stage}/myalexa-video
+	path: ${self:custom.stage}/Alexa
 	method: post
 	
 	package:
 	exclude:
-	- '.*'
-	- 'postman/**'
-	- 'package.json'
+	    - '.*'
+    - 'repositary.yml'
+    - 'node_modules'
+    - 'package.json'
+
