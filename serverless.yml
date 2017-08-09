@@ -36,13 +36,12 @@ provider:
     SPLUNK_LOGGER_TOKEN: ${env:SPLUNK_LOGGER_TOKEN_${self:custom.stageConfig.${self:custom.stage}.ucName}}
           
 functions:
-  alexa-video-skills:
-    handler: handlers/index.handler
+  incoming:
+    handler: handler.incoming
     events:
       - http:
-          path: ${self:custom.stage}/handler
+          path: stripe/incoming
           method: post
-  
 
 resources:
   Resources:
