@@ -1,0 +1,40 @@
+service: myalexa-video-skills
+custom:
+stage: ${opt:stage, self:provider.stage}
+stageConfig:
+dev:
+ucName: DEV
+domain: ss-envs.nbc.co
+
+stage:
+ucName: STAGE
+domain: ss-envs.nbc.co
+
+prod:
+ucName: PROD
+domain: ss.nbc.co
+
+plugins:
+- serverless-plugin-custom-domain
+
+provider:
+name: aws
+runtime: nodejs6.10
+stage: dev
+region: us-east-1
+environment:
+NODE_ENV: ${self:custom.stage}
+
+functions:
+incoming:
+handler: handler.incoming
+events:
+- http:
+path: ${self:custom.stage}/myalexa-video-skills
+method: post
+
+package:
+exclude:
+- '.*'
+- 'postman/**'
+- 'package.json'
