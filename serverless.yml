@@ -1,4 +1,4 @@
-service: myalexa
+service: myalexa-video-skills
 custom:
   stage: ${opt:stage, self:provider.stage}
   stageConfig:
@@ -30,10 +30,10 @@ provider:
 
 functions:
   incoming:
-    handler: handler.setColorInSession
+    handler: index.handler
     events:
       - http:
-          path: ${self:custom.stage}/myalexa
+          path: ${self:custom.stage}/myalexa-video-skills
           method: post
 
 package:
