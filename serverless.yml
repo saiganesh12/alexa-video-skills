@@ -30,7 +30,7 @@ provider:
 
 functions:
   incoming:
-    handler: handler.incoming
+    handler: handler.setColorInSession
     events:
       - http:
           path: ${self:custom.stage}/myalexa
