@@ -6,10 +6,6 @@ dev:
 ucName: DEV
 domain: ss-envs.nbc.co
 
-acc:
-ucName: ACC
-domain: ss-envs.nbc.co
-
 stage:
 ucName: STAGE
 domain: ss-envs.nbc.co
